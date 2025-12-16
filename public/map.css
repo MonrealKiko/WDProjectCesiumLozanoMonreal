@@ -1,0 +1,35 @@
+.map-wrapper {
+  width: calc(100% - 140px);
+  height: 850px;
+  margin-left: 120px;
+  margin-top: 30px;
+  overflow: hidden;
+  border-radius: 16px;
+  position: relative;
+  background: #111;
+}
+
+.draggable-map {
+  cursor: grab;
+  transform-origin: top left;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.teyvat-map {
+  width: 1200px;
+  display: block;
+  user-select: none;
+}
+
+.map-region:hover {
+  background: rgba(108, 92, 231, 0.3);
+  transform: scale(1.05);
+}
+
+/* Example positions */
+.inazuma { top: 55%; left: 75%; width: 120px; height: 120px; }
+.liyue   { top: 45%; left: 55%; width: 140px; height: 140px; }
+.mondstadt { top: 30%; left: 35%; width: 120px; height: 120px; }

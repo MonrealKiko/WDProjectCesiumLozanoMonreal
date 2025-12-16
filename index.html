@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../public/homepage.css">
+<link rel="stylesheet" href="../public/map.css">
+<style>
+    .leftsidebar {
+        top: 0;
+        left: 0;
+        margin: 0;
+        transition: width 0.3s;
+        position: fixed;
+        height: 100vh;
+        width: 100px;
+        background-color: #dddddd;
+        z-index: 1000;
+        overflow: hidden; 
+    }
+
+    .leftsidebar:hover {
+        width: 250px;
+    }
+
+    .toplefticon, .homepageicon, .searchicon, .mapicon, .quizicon {
+        position: absolute;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 1001;
+        transition: 0.2s;
+    }
+
+.toplefticon {
+    left: -10px;
+    width: 120px;
+    height: 120px;
+    background-image: url('../assets/logo.png');
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+.toplefticon::after {
+    content: "";
+    position: absolute;
+    inset: 15px; 
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+
+.toplefticon:hover::after {
+    background-color: rgba(63, 63, 63, 0.08);
+}
+
+.homepageicon {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background-image: url('../assets/quest.png');
+    margin-left: 29px;
+    margin-top: 120px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.homepageicon::after{
+    content: "";
+    position: absolute;
+    inset: -10px; 
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+.homepageicon:hover::after{
+    background-color: rgba(63, 63, 63, 0.08);
+}
+.quizicon{
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    background-image: url('../assets/quiz.png');
+    margin-left: 24px;
+    margin-top: 315px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.quizicon::after{
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+.quizicon:hover::after{
+    background-color: rgba(63, 63, 63, 0.08);
+}
+.home-text {
+    position: absolute;
+    top: 128px;   
+    left: 120px;     
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.search-text{
+    position: absolute;
+    margin-top: 66px;
+    top: 130px;   
+    left: 120px;     
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;    
+}
+.map-text{
+    position: absolute;
+    margin-top: 66px;
+    top: 194px;
+    left: 120px;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.quiz-text{
+    position: absolute;
+    margin-top: 66px;
+    top: 265px;
+    left: 120px;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.leftsidebar:hover .home-text {
+    opacity: 1;
+    transform: translateX(10px);
+}
+.leftsidebar:hover .search-text{
+    margin-top: 66px;
+    opacity: 1;
+    transform: translateX(10px);
+}
+.leftsidebar:hover .map-text{
+    opacity: 1;
+    transform: translateX(10px);
+}
+.leftsidebar:hover .quiz-text{
+    opacity: 1;
+    transform: translateX(10px);
+}
+.searchicon {
+    position: absolute;
+    height: 47px;
+    width: 47px;
+    background-image: url('../assets/icon.png');
+    margin-left: 26px;
+    margin-top: 180px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.searchicon::after{
+    content: "";
+    position: absolute;
+    inset: -8px; 
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+
+.searchicon:hover::after{
+    background-color: rgba(63, 63, 63, 0.08);
+}
+
+.mapicon {
+    position: absolute;
+    height: 47px;
+    width: 47px;
+    background-image: url('../assets/mapicon.png');
+    margin-left: 26px;
+    margin-top: 245px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.mapicon::after{
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+.mapicon:hover::after{
+    background-color: rgba(63, 63, 63, 0.08);
+}
+
+</style>
+</head>
+
+
+
+
+<body>
+<div class="pagebackground"></div>
+<div class="homepageheader"></div>
+
+<div class="filter-bar-vertical">
+    <span>Nation Filter:</span>
+    <button class="nation-btn tag-btn" data-tag="all">All</button>
+    <button class="nation-btn tag-btn" data-tag="inazuma">Inazuma</button>
+    <button class="nation-btn tag-btn" data-tag="liyue">Liyue</button>
+    <button class="nation-btn tag-btn" data-tag="mondstadt">Mondstadt</button>
+    <button class="nation-btn tag-btn" data-tag="sumeru">Sumeru</button>
+    <button class="nation-btn tag-btn" data-tag="natlan">Natlan</button>
+    <button class="nation-btn tag-btn" data-tag="nodkrai">Nod-Krai</button>
+    <span>Vision Filter:</span>
+    <button class="vision-btn tag-btn" data-tag="all">All</button>
+    <button class="vision-btn tag-btn" data-tag="pyro">Pyro</button>
+    <button class="vision-btn tag-btn" data-tag="hydro">Hydro</button>
+    <button class="vision-btn tag-btn" data-tag="anemo">Anemo</button>
+    <button class="vision-btn tag-btn" data-tag="geo">Geo</button>
+    <button class="vision-btn tag-btn" data-tag="electro">Electro</button>
+    <button class="vision-btn tag-btn" data-tag="cryo">Cryo</button>
+    <button class="vision-btn tag-btn" data-tag="dendro">Dendro</button>
+</div>
+
+<main class="feed">
+    <div id="postFeed"></div>
+</main>
+
+    <div class="leftsidebar">
+        <div class="toplefticon"></div>
+        <a href="../index.html" class="nav-link">
+            <div class="homepageicon"></div>
+            <span class="home-text">Home</span>
+        </a>
+        <a href="../public/accounts.html" class="nav-link">
+            <div class="searchicon"></div>
+            <span class="search-text">Accounts</span>
+        </a>
+        <a href="../public/map.html" class="nav-link">
+            <div class="mapicon"></div>
+            <span class="map-text">Map</span>
+        </a>
+        <a href="../public/visionquiz.html" class="nav-link">
+            <div class="quizicon"></div>
+            <span class="quiz-text">Vision Quiz</span>
+        </a>
+    </div>
+
+
+</body>
+
+<script>
+const posts = [
+  {
+    account: "𝒦aeya",
+    avatar: "assets/accounts/kaeya pfp.png",
+    title: "",
+    content: "“Leaving already? See you next time, then. Don't make me wait too long, though.”",
+    image: "assets/posts/kaeyamorningpost.png",
+    tags: ["mondstadt", "cryo", "kaeya"],
+    date: "Sept 12, 2025"
+  },
+  {
+    account: "Adepti ✘",
+    avatar: "assets/accounts/xiao pfp.png",
+    title: " ",
+    content: " ",
+    image: "assets/posts/xiaotofupic.png",
+    tags: ["liyue", "geo", "xiao"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "Adepti ✘",
+    avatar: "assets/accounts/xiao pfp.png",
+    title: "until you fade into the cloudy nights...",
+    content: "To me, you were always an enigmatic, complex person, and you had a vivid contrast of multiple spectrums and idiosyncrasies, yet they're what made you who you were. Sometimes you could be vague, and you always seem so calm, smart, and put-together, yet you're so interesting and full of personality. You respond to things in your own unique way, and the way you act isn't like anyone I've ever seen. I've always tried to see the most in everyone, and I always liked the feeling of knowing what people were like because I appreciate and love human personalities in general. But somehow, despite how mysterious you were, I found you so captivating that I felt content with just finding out more about you, learning about your motivations, talking with you about your interests, observing you. I notice the straight, calm, confident way in which you walk, the assuring and endearing tone of your voice, the way you keep your head down when you're in deep thought, the way your eyes crinkle when you're more happy than usual, the incredulous-looking shake of your head you do rarely, the way you sway from left to right and move your fingers when you're idle, the way you turn your head up slightly and how your eyes widen when you stare at something. You're always so well-spoken, patient, and calm, and you're one of the best conversationalists I know. If I am to be the observer, and you my most appreciated muse, then I would prefer to keep it that way, for I wouldn't dare to disturb the beautiful way in which you breathe, sense, move, and live life, and I will always wish the best for you and take joy in your happiness. ",
+    image: " ",
+    tags: ["liyue", "geo", "xiao"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "𝔗𝔦𝔤𝔥𝔫𝔞𝔯𝔦",
+    avatar: "assets/accounts/tighnari pfp.png",
+    title: "Morning Hike + Aranara Forests = Peak Photography📸",
+    content: " ",
+    image: "assets/posts/tighnariforestpic.png",
+    tags: ["sumeru", "dendro", "tighnari"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "arigathankusmthoma♥",
+    avatar: "assets/accounts/thoma pfp.png",
+    title: "🔥🧹",
+    content: "House is clean, meals are ready, and everyone’s safe—another good day! If you need help, just say the word.",
+    image: "assets/posts/thomacleaningpic.png",
+    tags: ["inazuma", "pyro", "thoma"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "𝐀𝐑𝐀𝐓𝐀𝐊𝐈 𝐍𝐔𝐌𝐄𝐑𝐎 1️⃣𝐔𝐍𝐎 𝐈𝐓𝐓𝐎",
+    avatar: "assets/accounts/itto pfp.png",
+    title: "❗ OFFICIAL ARATAKI GANG ANNOUNCEMENT ❗",
+    content: "Whoever beat me in arm wrestling yesterday, REMATCH, SAME TIME, NO MERCY. 💪💥",
+    image: " ",
+    tags: ["inazuma", "geo", "itto"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "¸¸♬·¯·♪·¯·♫¸¸ 𝓜𝓾𝓪𝓵𝓪𝓷𝓲🦈🌊¸¸♫·¯·♪¸♩·¯·♬¸¸",
+    avatar: "assets/accounts/mualani pfp.png",
+    title: " ",
+    content: "The sea’s calm today—perfect conditions for exploration. The ocean always rewards curiosity",
+    image: "assets/posts/mualanioceanpic.png",
+    tags: ["natlan", "hydro", "mualani"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "Alhaitham.",
+    avatar: "assets/accounts/alhaitham pfp.png",
+    title: "Dinner with Friends. ",
+    content: " ",
+    image: "assets/posts/alhaithamfriendspic.png",
+    tags: ["sumeru", "dendro", "alhaitham"],
+    date: "Sept 8, 2025"
+  },
+  {
+    account: "𝓒harlotte 𓏲ּ𝄢",
+    avatar: "assets/accounts/charlotte pfp.png",
+    title: "꒰ BREAKING NEWS 𓅯 ꒱ ",
+    content: "SPECIAL 4.1 VERSION UPDATE : NEW PLACES & MATERIALS",
+    image: "assets/posts/charlottesteambirdpic.png",
+    tags: ["fontaine", "hydro", "charlotte"],
+    date: "Sept 8, 2025"
+  }
+];
+
+const postFeed = document.getElementById("postFeed");
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+shuffle(posts);
+
+posts.forEach(post => {
+    const el = document.createElement("div");
+    el.className = "post";
+    el.dataset.tags = post.tags.join(",");
+
+    el.innerHTML = `
+        <div class="post-header">
+        <img class="post-avatar" src="${post.avatar}" alt="${post.account}">
+        <div>
+            <div class="post-account">${post.account}</div>
+            <div class="post-date">${post.date}</div>
+        </div>
+        </div>
+
+    <h2>${post.title}</h2>
+    <p>${post.content}</p>
+
+    ${post.image ? `<img class="post-image" src="${post.image}" alt="">` : ""}
+
+    <div class="post-tags">
+        ${post.tags.map(tag => `<span>#${tag}</span>`).join("")}
+    </div>
+  `;
+
+  postFeed.appendChild(el);
+});
+const allPosts = document.querySelectorAll(".post");
+
+let selectedNation = "all";
+let selectedVision = "all";
+
+const nationButtons = document.querySelectorAll(".nation-btn");
+const visionButtons = document.querySelectorAll(".vision-btn");
+
+nationButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        selectedNation = btn.dataset.tag;
+        nationButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        filterPosts();
+    });
+});
+
+visionButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        selectedVision = btn.dataset.tag;
+        visionButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        filterPosts();
+    });
+});
+
+function filterPosts() {
+    allPosts.forEach(post => {
+        const tags = post.dataset.tags.split(",");
+        
+        const nationMatch = selectedNation === "all" || tags.includes(selectedNation);
+        const visionMatch = selectedVision === "all" || tags.includes(selectedVision);
+
+        if (nationMatch && visionMatch) {
+            post.style.display = "block";
+        } else {
+            post.style.display = "none";
+        }
+    });
+}
+</script>
+
+</html>

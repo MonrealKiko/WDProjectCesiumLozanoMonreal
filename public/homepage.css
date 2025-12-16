@@ -1,0 +1,130 @@
+.pagecontainer{
+    position: relative;
+}
+.homepageheader {
+    margin: -10px;
+    left: 100px;
+    width: 100%;
+    height: 250px;
+    background-image: url('../assets/homepageheader.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative; 
+    z-index: 1; 
+}
+.pagebackground {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../assets/pagebackground.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: 0;
+    pointer-events: none;
+}
+body {
+    font-family: 'Overpass', sans-serif;
+}
+.feed {
+    margin-left: 100px;
+    position: relative;
+    padding: 30px;
+    width: calc(100% - 100px);
+    font-family: 'Overpass', sans-serif;
+    z-index: 2;
+    margin-top: 50px;
+}
+.post p, .post h2{
+    margin: 6px 0;
+    line-height: 1.3;
+}
+.post {
+    max-width: 80%;
+    font-size: 24px;
+    border-bottom: 1px solid #ccc;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.post-avatar {
+    margin-top: 20px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-account {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 27px;
+}
+
+.post-date {
+    font-size: 20px;
+    color: #777;
+}
+
+.post-image {
+    width: 500px;
+    border-radius: 12px;
+    transition: 0.4s ease;
+}
+
+.post-image:hover{
+    transform: scale(1.07);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: 0.4s ease;
+}
+
+.post-tags {
+    margin-top: 8px;
+}
+
+.post-tags span {
+    font-size: 13px;
+    color: #6b3fc9;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.filter-bar-vertical {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(245,245,245,0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.filter-bar-vertical span {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.filter-bar-vertical .tag-btn {
+    padding: 6px 12px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    background: #eee;
+    transition: background 0.2s;
+}
+
+.filter-bar-vertical .tag-btn.active {
+    background: #555;
+    color: white;
+}

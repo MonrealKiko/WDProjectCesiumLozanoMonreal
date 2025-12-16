@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Genshin Vision Personality Quiz</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: url('/assets/bg/quizbg.jpg') no-repeat center center fixed;
+  background-size: cover;
+color: #fff;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+margin: 0;
+}
+
+
+.quiz-container {
+ background: rgba(255, 255, 255, 0.6); 
+  color: #000; 
+width: 90%;
+max-width: 500px;
+padding: 25px;
+border-radius: 12px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.0);
+text-align: center;
+position: relative;
+}
+
+
+h1 {
+margin-bottom: 20px;
+}
+
+
+button {
+display: block;
+width: 100%;
+background: #6c63ff;
+padding: 12px;
+margin-top: 15px;
+border: none;
+border-radius: 8px;
+color: white;
+font-size: 16px;
+cursor: pointer;
+}
+
+button:hover {
+background: #8078ff;
+}
+
+
+.result {
+margin-top: 20px;
+font-size: 18px;
+}
+
+
+.vision-image {
+width: 150px;
+height: 150px;
+object-fit: contain;
+margin-top: 15px;
+border-radius: 8px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+.pop {
+animation: popIn 0.35s ease-out;
+}
+
+
+@keyframes popIn {
+0% { transform: scale(0.9); opacity: 0; }
+70% { transform: scale(1.03); opacity: 1; }
+100% { transform: scale(1); }
+}
+</style>
+</head>
+<body>
+<div class="quiz-container pop" id="quiz">
+<h1 id="title">Welcome to the Genshin Vision Quiz</h1>
+<div id="content">
+<p>Discover which Genshin Vision matches your personality!</p>
+<button id="startBtn">Start Quiz</button>
+</div>
+<div class="result" id="result"></div>
+</div>
+
+<script>
+const questions = [
+{ text: "What describes you best?", options: ["Passionate and energetic", "Calm and adaptable", "Independent and bold", "Quiet and composed"], visions: ["pyro","hydro","electro","cryo"] },
+{ text: "How do you solve problems?", options: ["Go with the flow", "Carefully and logically", "Through learning and thinking", "Head-on, no fear"], visions: ["anemo","geo","dendro","pyro"] },
+{ text: "What do you value most?", options: ["Diligence", "Freedom", "Justice", "Ambition"], visions: ["geo","anemo","hydro","electro"] }
+];
+
+
+const scores = {pyro:0, hydro:0, electro:0, cryo:0, anemo:0, geo:0, dendro:0};
+let currentQuestion = 0;
+
+
+const quiz = document.getElementById('quiz');
+const title = document.getElementById('title');
+const content = document.getElementById('content');
+const resultDiv = document.getElementById('result');
+
+
+const visionData = {
+pyro: {name:'Pyro 🔥',  description:'Energetic and passionate, you act with intensity and courage.'},
+hydro: {name:'Hydro 💧',  description:'Calm and adaptable, you flow with situations gracefully.'},
+electro: {name:'Electro ⚡',  description:'Independent and bold, you have a spark of creativity and energy.'},
+cryo: {name:'Cryo ❄️', description:'Quiet and composed, you are cool-headed and careful.'},
+anemo: {name:'Anemo 🌪️', description:'Free-spirited and flexible, you love freedom and movement.'},
+geo: {name:'Geo 🪨', description :'Stable and grounded, you value structure and reliability.'},
+dendro: {name:'Dendro 🌿',  description:'Harmonious and thoughtful, you are connected to nature and growth.'}
+};
+
+
+function triggerPop() {
+quiz.classList.remove('pop');
+void quiz.offsetWidth;
+quiz.classList.add('pop');
+}
+
+
+document.getElementById('startBtn').addEventListener('click', () => {
+currentQuestion = 0;
+for (let v in scores) scores[v] = 0;
+showQuestion();
+});
+
+
+function showQuestion() {
+const q = questions[currentQuestion];
+content.innerHTML = `<p>${q.text}</p>`;
+
+
+for (let i = 0; i < q.options.length; i++) {
+const btn = document.createElement('button');
+btn.innerText = q.options[i];
+btn.onclick = function() {
+if (i === 0) scores[q.visions[0]]++;
+else if (i === 1) scores[q.visions[1]]++;
+else if (i === 2) scores[q.visions[2]]++;
+else if (i === 3) scores[q.visions[3]]++;
+nextStep();
+};
+content.appendChild(btn);
+}
+triggerPop();
+}
+
+function nextStep() {
+currentQuestion++;
+if (currentQuestion < questions.length) showQuestion();
+else showResult();
+}
+
+
+function showResult() {
+content.innerHTML = '';
+let finalVision = '';
+if (scores.pyro >= scores.hydro && scores.pyro >= scores.electro && scores.pyro >= scores.cryo && scores.pyro >= scores.anemo && scores.pyro >= scores.geo && scores.pyro >= scores.dendro) finalVision = 'pyro';
+else if (scores.hydro >= scores.pyro && scores.hydro >= scores.electro && scores.hydro >= scores.cryo && scores.hydro >= scores.anemo && scores.hydro >= scores.geo && scores.hydro >= scores.dendro) finalVision = 'hydro';
+else if (scores.electro >= scores.pyro && scores.electro >= scores.hydro && scores.electro >= scores.cryo && scores.electro >= scores.anemo && scores.electro >= scores.geo && scores.electro >= scores.dendro) finalVision = 'electro';
+else if (scores.cryo >= scores.pyro && scores.cryo >= scores.hydro && scores.cryo >= scores.electro && scores.cryo >= scores.anemo && scores.cryo >= scores.geo && scores.cryo >= scores.dendro) finalVision = 'cryo';
+else if (scores.anemo >= scores.pyro && scores.anemo >= scores.hydro && scores.anemo >= scores.electro && scores.anemo >= scores.cryo && scores.anemo >= scores.geo && scores.anemo >= scores.dendro) finalVision = 'anemo';
+else if (scores.geo >= scores.pyro && scores.geo >= scores.hydro && scores.geo >= scores.electro && scores.geo >= scores.cryo && scores.geo >= scores.anemo && scores.geo >= scores.dendro) finalVision = 'geo';
+else finalVision = 'dendro';
+
+
+title.innerText = visionData[finalVision].name;
+resultDiv.innerHTML = `<img src='${visionData[finalVision].img}' class='vision-image'><p>${visionData[finalVision].description}</p>`;
+
+
+const retryBtn = document.createElement('button');
+retryBtn.innerText = 'Retake Quiz';
+retryBtn.onclick = () => {
+resultDiv.innerHTML = '';
+currentQuestion = 0;
+for (let v in scores) scores[v] = 0;
+showQuestion();
+};
+
+
+const homeBtn = document.createElement('button');
+homeBtn.innerText = 'Back to Home';
+homeBtn.onclick = showHome;
+
+
+content.appendChild(retryBtn);
+content.appendChild(homeBtn);
+triggerPop();
+}
+
+
+function showHome() {
+title.innerText = 'Welcome to the Genshin Vision Quiz';
+resultDiv.innerHTML = '';
+content.innerHTML = `<p>Discover which Genshin Vision matches your personality!</p>`;
+const startBtn = document.createElement('button');
+startBtn.innerText = 'Start Quiz';
+startBtn.onclick = () => {
+currentQuestion = 0;
+for (let v in scores) scores[v] = 0;
+showQuestion();
+};
+content.appendChild(startBtn);
+triggerPop();
+}
+</script>
+</body>
+</html>
