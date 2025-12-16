@@ -40,3 +40,7 @@
     color: #000000;
     font-family: 'Overpass', sans-serif;
 }
+.compressed{
+  max-width: 1020px;
+  margin: 0 auto;
+}

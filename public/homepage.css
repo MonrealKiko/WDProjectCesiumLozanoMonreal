@@ -13,6 +13,42 @@
     position: relative; 
     z-index: 1; 
 }
+.accountpageheader {
+    margin: -10px;
+    left: 100px;
+    width: 100%;
+    height: 250px;
+    background-image: url('../assets/accountpageheader.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative; 
+    z-index: 1; 
+}
+.mappageheader {
+    margin: -10px;
+    left: 100px;
+    width: 100%;
+    height: 250px;
+    background-image: url('../assets/mappageheader.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative; 
+    z-index: 1; 
+}
+.visionquizpageheader {
+    position: fixed;
+    margin: -10px;
+    left: 100px;
+    width: 100%;
+    height: 250px;
+    background-image: url('../assets/visionquizpageheader.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    z-index: 1100; 
+}
 .pagebackground {
     position: fixed;
     inset: 0;
@@ -127,4 +163,16 @@ body {
 .filter-bar-vertical .tag-btn.active {
     background: #555;
     color: white;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    z-index: 1005;
 }
