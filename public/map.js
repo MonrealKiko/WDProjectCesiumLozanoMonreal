@@ -7,7 +7,7 @@ let currentX = 0, currentY = 0;
 
 let scale = 1;
 const minScale = 0.5;
-const maxScale = 2.5;
+const maxScale = 5.0;
 
 // Update transform
 function updateTransform() {
