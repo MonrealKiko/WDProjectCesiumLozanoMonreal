@@ -24,7 +24,7 @@
         width: 250px;
     }
 
-    .toplefticon, .homepageicon, .searchicon, .mapicon, .quizicon {
+    .toplefticon, .homepageicon, .searchicon, .mapicon, .quizicon, .loginicon {
         position: absolute;
         background-size: contain;
         background-repeat: no-repeat;
@@ -205,6 +205,42 @@
 .mapicon:hover::after{
     background-color: rgba(63, 63, 63, 0.08);
 }
+.loginicon {
+    position: absolute;
+    height: 47px;
+    width: 47px;
+    background-image: url('../assets/loginicon.png');
+    margin-left: 26px;
+    margin-top: 395px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.loginicon::after{
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+.loginicon:hover::after{
+    background-color: rgba(63, 63, 63, 0.08);
+}
+.login-text {
+    position: absolute;
+    margin-top: 66px;
+    top: 340px; 
+    left: 120px;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.leftsidebar:hover .login-text {
+    opacity: 1;
+    transform: translateX(10px);
+}
 
 </style>
 
@@ -260,6 +296,10 @@
         <a href="../public/visionquiz.html" class="nav-link">
             <div class="quizicon"></div>
             <span class="quiz-text">Vision Quiz</span>
+        </a>
+        <a href="../public/loginpage.html" class="nav-link">
+            <div class="loginicon"></div>
+            <span class="login-text">Log In Page</span>
         </a>
     </div>
 

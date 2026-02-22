@@ -49,6 +49,18 @@
     background-repeat: no-repeat; 
     z-index: 999; 
 }
+.loginpageheader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    background-image: url('../assets/loginpageheader.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    z-index: 999; 
+}
 .pagebackground {
     position: fixed;
     inset: 0;
