@@ -16,15 +16,15 @@
         height: 100vh;
         width: 100px;
         background-color: #dddddd;
-        z-index: 1005;
+        z-index: 2002;
         overflow: hidden; 
     }
 
     .leftsidebar:hover {
-        width: 250px;
+        width: 290px;
     }
 
-    .toplefticon, .homepageicon, .searchicon, .mapicon, .quizicon, .loginicon {
+    .toplefticon, .homepageicon, .searchicon, .mapicon, .quizicon, .loginicon, .postsicon {
         position: absolute;
         background-size: contain;
         background-repeat: no-repeat;
@@ -241,6 +241,99 @@
     opacity: 1;
     transform: translateX(10px);
 }
+.postsicon {
+    position: absolute;
+    height: 47px;
+    width: 47px;
+    background-image: url('../assets/postsicon.png');
+    margin-left: 26px;
+    margin-top: 474px;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.postsicon::after{
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background-color: rgba(141, 141, 141, 0);
+    transition: background-color 0.4s ease;
+}
+.postsicon:hover::after{
+    background-color: rgba(63, 63, 63, 0.08);
+}
+.posts-text {
+    position: absolute;
+    margin-top: 147px;
+    top: 340px; 
+    left: 120px;
+    font-size: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.leftsidebar:hover .posts-text {
+    opacity: 1;
+    transform: translateX(10px);
+}
+body {
+    font-family: 'Overpass', sans-serif;
+    background-color: #f4f4f4;
+}
+
+.post-container {
+    position: relative;
+    margin-left: 60px;
+    margin-top: 325px;
+    width: 500px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    z-index: 2000;
+}
+
+.post-container h2 {
+    margin-bottom: 20px;
+}
+
+.post-container label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.post-container input,
+.post-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: inherit;
+}
+
+.post-container textarea {
+    resize: vertical;
+    height: 120px;
+}
+
+.post-container button {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background-color: #4b6cb7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.post-container button:hover {
+    background-color: #3a55a0;
+}
 
 </style>
 </head>
@@ -269,15 +362,71 @@
         </a>
         <a href="../public/loginpage.html" class="nav-link">
             <div class="loginicon"></div>
-            <span class="login-text">Log In Page</span>
+            <span class="login-text">Make a Post Page</span>
+        </a>
+        <a href="../public/posts.html" class="nav-link">
+            <div class="postsicon"></div>
+            <span class="posts-text">See Posts Page</span>
         </a>
 </div>
-    
-<script src="../public/characters.js"></script>
-<script src="../public/accounts.js"></script>
-<script src="../public/characters.js"></script>
-<script src="../public/accounts.js"></script>
 
+<div class="post-container">
+    <h2>Make a Post</h2>
+
+    <form id="postForm">
+        <label for="date">Date</label>
+        <input type="date" id="date" required>
+
+        <label for="title">Post Title</label>
+        <input type="text" id="title" required>
+
+        <label for="description">Post Description</label>
+        <textarea id="description" required></textarea>
+
+        <label for="image">Optional Image</label>
+        <input type="file" id="image" accept="image/*">
+
+        <button type="submit">Submit Post</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("postForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const reader = new FileReader();
+    const imageFile = document.getElementById("image").files[0];
+
+    const newPost = {
+        date: document.getElementById("date").value,
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        image: null
+    };
+
+    if (imageFile) {
+        reader.onload = function () {
+            newPost.image = reader.result;
+            savePost(newPost);
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        savePost(newPost);
+    }
+
+    function savePost(post) {
+
+        const posts = JSON.parse(localStorage.getItem("postsData") || "[]");
+
+
+        posts.push(post);
+
+        localStorage.setItem("postsData", JSON.stringify(posts));
+
+        window.location.href = "../public/posts.html";
+    }
+});
+</script>
 <div class="pagebackground"></div>
 
 <footer>

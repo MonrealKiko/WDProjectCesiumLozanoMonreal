@@ -277,13 +277,57 @@
     opacity: 1;
     transform: translateX(10px);
 }
+body {
+    font-family: 'Overpass', sans-serif;
+    background-color: #f4f4f4;
+}
 
+.post-display {
+    position: relative;
+    margin-left: 100px;
+    margin-top: 275px;
+    width: 600px;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    z-index: 20;
+}
+
+.post-display h1 {
+    margin-bottom: 10px;
+}
+
+.post-date {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.post-image {
+    max-width: 100%;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+.single-post {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.post-image {
+    max-width: 100%;
+    margin-top: 15px;
+    border-radius: 8px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="accountpageheader"></div>
+<div class="postsheader"></div>
 
 <div class="leftsidebar">
         <div class="toplefticon"></div>
@@ -312,32 +356,35 @@
             <span class="posts-text">See Posts Page</span>
         </a>
 </div>
-    
-<script src="../public/characters.js"></script>
-<script src="../public/accounts.js"></script>
 
-<div class="accounts-page">
-  <h1>Character Accounts</h1>
+<div class="post-display" id="postDisplay"></div>
 
-  <div class="filters">
-    <select id="visionFilter">
-      <option value="all">All Visions</option>
-      <option value="pyro">Pyro</option>
-      <option value="hydro">Hydro</option>
-      ...
-    </select>
-  </div>
+<script>
+const raw = localStorage.getItem("postsData");
 
-  <div id="accountsGrid" class="accounts-grid"></div>
-</div>
+const container = document.getElementById("postDisplay");
 
-<script src="../public/characters.js"></script>
-<script src="../public/accounts.js"></script>
+if (!raw) {
+    container.innerHTML = "<p>No posts found.</p>";
+} else {
+    const posts = JSON.parse(raw);
+
+    container.innerHTML = posts.map(post => `
+        <div class="single-post">
+            <h1>${post.title}</h1>
+            <div class="post-date">${post.date}</div>
+            <p>${post.description}</p>
+            ${post.image ? `<img src="${post.image}" class="post-image">` : ""}
+        </div>
+    `).join("");
+}
+</script>
 
 <div class="pagebackground"></div>
 
 <footer>
     Genshin Impact Wiki | Fandom. (n.d.). https://genshin-impact.fandom.com/wiki/Genshin_Impact_Wiki
 </footer>
+
 
 </body>

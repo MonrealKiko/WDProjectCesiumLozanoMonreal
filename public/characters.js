@@ -1,4 +1,6 @@
-const characters = [
+if (!window.characters){
+  window.characters =
+ [
   {
     name: "Alhaitham.",
     vision: "Dendro",
@@ -56,3 +58,4 @@ const characters = [
     header: "../assets/header/xiao-header.png"
   }
 ];
+};
