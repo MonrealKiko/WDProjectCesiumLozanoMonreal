@@ -24,3 +24,7 @@
 #### ![P4 (Teyvat Map)](https://github.com/MonrealKiko/WDProjCesiumLozanoMonreal/blob/main/assets/wireframes/LOGO/4.png)
 #### ![P5 (Vision Quiz, Questions)](https://github.com/MonrealKiko/WDProjCesiumLozanoMonreal/blob/main/assets/wireframes/LOGO/5.png)
 #### ![P6 (Vision Quiz, Result)](https://github.com/MonrealKiko/WDProjCesiumLozanoMonreal/blob/main/assets/wireframes/LOGO/6.png)
+
+#### FINAL MODIFICATION PROPOSAL
+## 1. 
+# Narrative : The data of each post made can be edited and deleted by clicking on the buttons on each post in the “See Posts Page” webpage. The purpose of this is to allow users to readily delete and/or edit their posts. How it works is that it will identify the specific item to be edited/deleted and removes/edits it from stored data and updates the localStorage to reflect the changes and lastly it updates the webpage’s UI to also display the changes.
