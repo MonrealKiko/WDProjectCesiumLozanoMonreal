@@ -283,9 +283,11 @@ body {
 }
 
 .post-container {
-    position: relative;
-    margin-left: 60px;
-    margin-top: 325px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     width: 500px;
     background: white;
     padding: 25px;
@@ -398,6 +400,7 @@ document.getElementById("postForm").addEventListener("submit", function(e) {
     const imageFile = document.getElementById("image").files[0];
 
     const newPost = {
+        id: Date.now(),
         date: document.getElementById("date").value,
         title: document.getElementById("title").value,
         description: document.getElementById("description").value,

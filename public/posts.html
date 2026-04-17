@@ -283,15 +283,13 @@ body {
 }
 
 .post-display {
-    position: relative;
-    margin-left: 100px;
-    margin-top: 275px;
-    width: 600px;
+    width: 800px;
     background: white;
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    z-index: 20;
+    margin: 0;
+    transform: translateY(100px);
 }
 
 .post-display h1 {
@@ -321,6 +319,64 @@ body {
     max-width: 100%;
     margin-top: 15px;
     border-radius: 8px;
+}
+.post-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+
+.post-actions button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+
+.edit-btn {
+    background-color: #4b6cb7;
+    color: white;
+    box-shadow: 0 3px 10px rgba(75, 108, 183, 0.3);
+}
+
+.edit-btn:hover {
+    background-color: #3a55a0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(75, 108, 183, 0.35);
+}
+
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    box-shadow: 0 3px 10px rgba(231, 76, 60, 0.25);
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(231, 76, 60, 0.35);
+}
+
+
+.post-actions button:active {
+    transform: translateY(0px);
+    box-shadow: none;
+}
+
+.post-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+
+    padding-top: 220px;
+    margin-left: 100px;
 }
 </style>
 </head>
@@ -357,17 +413,51 @@ body {
         </a>
 </div>
 
-<div class="post-display" id="postDisplay"></div>
+<div class="post-wrapper">
+    <div class="post-display" id="postDisplay"></div>
+</div>
 
 <script>
-const raw = localStorage.getItem("postsData");
-
 const container = document.getElementById("postDisplay");
 
-if (!raw) {
-    container.innerHTML = "<p>No posts found.</p>";
-} else {
-    const posts = JSON.parse(raw);
+function getPosts() {
+    return JSON.parse(localStorage.getItem("postsData") || "[]");
+}
+
+function savePosts(posts) {
+    localStorage.setItem("postsData", JSON.stringify(posts));
+}
+
+function deletePost(id) {
+    let posts = getPosts();
+    posts = posts.filter(post => post.id !== id);
+    savePosts(posts);
+    renderPosts();
+}
+
+function editPost(id) {
+    let posts = getPosts();
+    const post = posts.find(p => p.id === id);
+
+    if (!post) return;
+
+    const newTitle = prompt("Edit title:", post.title);
+    const newDesc = prompt("Edit description:", post.description);
+
+    if (newTitle !== null) post.title = newTitle;
+    if (newDesc !== null) post.description = newDesc;
+
+    savePosts(posts);
+    renderPosts();
+}
+
+function renderPosts() {
+    const posts = getPosts();
+
+    if (posts.length === 0) {
+        container.innerHTML = "<p>No posts found.</p>";
+        return;
+    }
 
     container.innerHTML = posts.map(post => `
         <div class="single-post">
@@ -375,9 +465,16 @@ if (!raw) {
             <div class="post-date">${post.date}</div>
             <p>${post.description}</p>
             ${post.image ? `<img src="${post.image}" class="post-image">` : ""}
+
+            <div class="post-actions">
+                <button class="edit-btn" onclick="editPost(${post.id})">Edit</button>
+                <button class="delete-btn" onclick="deletePost(${post.id})">Delete</button>
+            </div>
         </div>
     `).join("");
 }
+
+renderPosts();
 </script>
 
 <div class="pagebackground"></div>
